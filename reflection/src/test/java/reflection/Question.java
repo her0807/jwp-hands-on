@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Question {
-
     private long questionId;
 
     private String writer;

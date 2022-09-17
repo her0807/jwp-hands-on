@@ -1,23 +1,26 @@
 package reflection;
 
 public class Student {
-    private String name;
+	private String name;
 
-    private int age;
+	private int age;
 
-    public String getName() {
-        return name;
-    }
+	public Student() {
+	}
 
-    public int getAge() {
-        return age;
-    }
+	public String getName() {
+		return name;
+	}
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
+	public int getAge() {
+		return age;
+	}
+
+	@Override
+	public String toString() {
+		return "Student{" +
+			"name='" + name + '\'' +
+			", age=" + age +
+			'}';
+	}
 }
