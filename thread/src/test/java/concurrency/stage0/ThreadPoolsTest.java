@@ -2,6 +2,7 @@ package concurrency.stage0;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -56,11 +57,29 @@ class ThreadPoolsTest {
 	private Runnable logWithSleep(final String message) {
 		return () -> {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(1000); // 1ch
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
 			log.info(message);
 		};
+	}
+
+	@Test
+	public void executeTest() throws InterruptedException {
+		ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+		for (int i = 0; i < 10; i++) {
+			Runnable runnable = () -> {
+				ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor)executorService;
+				int poolSize = threadPoolExecutor.getPoolSize();
+				String threadName = Thread.currentThread().getName();
+				System.out.println("[총 스레드 개수: " + poolSize + "] 작업 스레드 이름: " + threadName);
+				int value = Integer.parseInt("숫자"); // 에러 발생 포인트
+			};
+			executorService.execute(runnable);
+			Thread.sleep(100);
+		}
+		executorService.shutdown();
 	}
 }
